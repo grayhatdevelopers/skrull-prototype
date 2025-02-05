@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class DraggableCard : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class DraggableCard : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler 
 {
     private RectTransform rectTransform;
     private CanvasGroup canvasGroup;
