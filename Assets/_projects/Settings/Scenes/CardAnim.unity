@@ -302,7 +302,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.14509805, g: 0.30588236, b: 0.2651474, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -537,7 +537,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.40790546, g: 0.16620483, b: 0.16620483, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -574,8 +574,8 @@ GameObject:
   - component: {fileID: 1471607651}
   - component: {fileID: 1471607650}
   - component: {fileID: 1471607649}
-  - component: {fileID: 1471607652}
   - component: {fileID: 1471607653}
+  - component: {fileID: 1471607654}
   m_Layer: 5
   m_Name: Card
   m_TagString: Untagged
@@ -599,7 +599,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.3072963}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -176, y: 35.871582}
+  m_AnchoredPosition: {x: -165.71, y: 35.872}
   m_SizeDelta: {x: 177.7134, y: 224.71838}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1471607649
@@ -625,7 +625,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 0.18841223, g: 0.48524806, b: 0.5471698, a: 1}
     m_HighlightedColor: {r: 0.2953007, g: 0.7901586, b: 0.89433956, a: 1}
-    m_PressedColor: {r: 0.1882353, g: 0.4862745, b: 0.54901963, a: 1}
+    m_PressedColor: {r: 0.23238175, g: 0.38973534, b: 0.42286253, a: 1}
     m_SelectedColor: {r: 0.1509505, g: 0.37227345, b: 0.4188679, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -681,18 +681,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1471607647}
   m_CullTransparentMesh: 1
---- !u!114 &1471607652
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1471607647}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b47f922b048cae1cbcf0e662d4d00b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1471607653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -708,6 +696,19 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
   m_EffectDistance: {x: 10, y: 10}
   m_UseGraphicAlpha: 1
+--- !u!114 &1471607654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1471607647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 256f657dec20c77879cea6ee75a8b977, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverHeight: 30
 --- !u!1 &1484596387
 GameObject:
   m_ObjectHideFlags: 0
@@ -799,8 +800,8 @@ GameObject:
   - component: {fileID: 1596823626}
   - component: {fileID: 1596823625}
   - component: {fileID: 1596823624}
-  - component: {fileID: 1596823623}
   - component: {fileID: 1596823622}
+  - component: {fileID: 1596823627}
   m_Layer: 5
   m_Name: Card (2)
   m_TagString: Untagged
@@ -842,18 +843,6 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
   m_EffectDistance: {x: 10, y: 10}
   m_UseGraphicAlpha: 1
---- !u!114 &1596823623
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1596823620}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b47f922b048cae1cbcf0e662d4d00b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1596823624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -876,9 +865,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0.18841223, g: 0.48524806, b: 0.5471698, a: 1}
-    m_HighlightedColor: {r: 0.7271311, g: 0.97564006, b: 0.605937, a: 1}
-    m_PressedColor: {r: 0.078942776, g: 0.38431418, b: 0.08258323, a: 1}
-    m_SelectedColor: {r: 0.828892, g: 0.18270996, b: 0.18270996, a: 1}
+    m_HighlightedColor: {r: 0.29411766, g: 0.7882353, b: 0.89411765, a: 1}
+    m_PressedColor: {r: 0.23529412, g: 0.39215687, b: 0.42352942, a: 1}
+    m_SelectedColor: {r: 0.1882353, g: 0.4862745, b: 0.54901963, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.5
@@ -933,6 +922,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1596823620}
   m_CullTransparentMesh: 1
+--- !u!114 &1596823627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1596823620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 256f657dec20c77879cea6ee75a8b977, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverHeight: 30
 --- !u!1 &1844886113
 GameObject:
   m_ObjectHideFlags: 0
@@ -1047,8 +1049,8 @@ GameObject:
   - component: {fileID: 1855582750}
   - component: {fileID: 1855582749}
   - component: {fileID: 1855582748}
-  - component: {fileID: 1855582747}
   - component: {fileID: 1855582746}
+  - component: {fileID: 1855582751}
   m_Layer: 5
   m_Name: Card (1)
   m_TagString: Untagged
@@ -1090,18 +1092,6 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
   m_EffectDistance: {x: 10, y: 10}
   m_UseGraphicAlpha: 1
---- !u!114 &1855582747
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1855582744}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b47f922b048cae1cbcf0e662d4d00b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1855582748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1124,9 +1114,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0.645283, g: 0.5339443, b: 0.1789747, a: 1}
-    m_HighlightedColor: {r: 0.7271311, g: 0.97564006, b: 0.605937, a: 1}
-    m_PressedColor: {r: 0.078942776, g: 0.38431418, b: 0.08258323, a: 1}
-    m_SelectedColor: {r: 0.828892, g: 0.18270996, b: 0.18270996, a: 1}
+    m_HighlightedColor: {r: 0.9684673, g: 0.84435195, b: 0.45916632, a: 1}
+    m_PressedColor: {r: 0.64705884, g: 0.53333336, b: 0.18039216, a: 1}
+    m_SelectedColor: {r: 0.4417172, g: 0.36246583, b: 0.11651316, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.5
@@ -1181,6 +1171,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1855582744}
   m_CullTransparentMesh: 1
+--- !u!114 &1855582751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1855582744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 256f657dec20c77879cea6ee75a8b977, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverHeight: 30
 --- !u!1 &1911501661
 GameObject:
   m_ObjectHideFlags: 0
@@ -1193,8 +1196,8 @@ GameObject:
   - component: {fileID: 1911501667}
   - component: {fileID: 1911501666}
   - component: {fileID: 1911501665}
-  - component: {fileID: 1911501664}
   - component: {fileID: 1911501663}
+  - component: {fileID: 1911501668}
   m_Layer: 5
   m_Name: Card (4)
   m_TagString: Untagged
@@ -1236,18 +1239,6 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
   m_EffectDistance: {x: 10, y: 10}
   m_UseGraphicAlpha: 1
---- !u!114 &1911501664
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1911501661}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b47f922b048cae1cbcf0e662d4d00b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1911501665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1327,6 +1318,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1911501661}
   m_CullTransparentMesh: 1
+--- !u!114 &1911501668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1911501661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 256f657dec20c77879cea6ee75a8b977, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverHeight: 30
 --- !u!1 &2022402661
 GameObject:
   m_ObjectHideFlags: 0
@@ -1339,8 +1343,8 @@ GameObject:
   - component: {fileID: 2022402667}
   - component: {fileID: 2022402666}
   - component: {fileID: 2022402665}
-  - component: {fileID: 2022402664}
   - component: {fileID: 2022402663}
+  - component: {fileID: 2022402668}
   m_Layer: 5
   m_Name: Card (3)
   m_TagString: Untagged
@@ -1382,18 +1386,6 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
   m_EffectDistance: {x: 10, y: 10}
   m_UseGraphicAlpha: 1
---- !u!114 &2022402664
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2022402661}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b47f922b048cae1cbcf0e662d4d00b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2022402665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1416,9 +1408,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0.18841223, g: 0.48524806, b: 0.5471698, a: 1}
-    m_HighlightedColor: {r: 0.7271311, g: 0.97564006, b: 0.605937, a: 1}
-    m_PressedColor: {r: 0.078942776, g: 0.38431418, b: 0.08258323, a: 1}
-    m_SelectedColor: {r: 0.828892, g: 0.18270996, b: 0.18270996, a: 1}
+    m_HighlightedColor: {r: 0.29411766, g: 0.7882353, b: 0.89411765, a: 1}
+    m_PressedColor: {r: 0.23529412, g: 0.39215687, b: 0.42352942, a: 1}
+    m_SelectedColor: {r: 0.1882353, g: 0.4862745, b: 0.54901963, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.5
@@ -1473,6 +1465,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2022402661}
   m_CullTransparentMesh: 1
+--- !u!114 &2022402668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2022402661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 256f657dec20c77879cea6ee75a8b977, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverHeight: 30
 --- !u!1 &2118443752
 GameObject:
   m_ObjectHideFlags: 0
@@ -1484,6 +1489,7 @@ GameObject:
   - component: {fileID: 2118443753}
   - component: {fileID: 2118443755}
   - component: {fileID: 2118443754}
+  - component: {fileID: 2118443756}
   m_Layer: 5
   m_Name: Hand
   m_TagString: Untagged
@@ -1553,6 +1559,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2118443752}
   m_CullTransparentMesh: 1
+--- !u!114 &2118443756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118443752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 256f657dec20c77879cea6ee75a8b977, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverHeight: 30
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
