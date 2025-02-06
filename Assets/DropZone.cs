@@ -9,8 +9,9 @@ public class DropZone : MonoBehaviour, IDropHandler
 
         if (draggable != null)
         {
-            draggable.transform.SetParent(transform); // Move card into the drop zone
-            draggable.transform.localPosition = Vector3.zero; // Center it in the slot
+            draggable.transform.SetParent(transform, true); // Keep UI scaling correct
+            draggable.GetComponent<RectTransform>().anchoredPosition = Vector2.zero; // Center the card
+            draggable.transform.SetAsLastSibling(); // Bring the card to the front
         }
     }
 }
