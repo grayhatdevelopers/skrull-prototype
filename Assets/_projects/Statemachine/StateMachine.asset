@@ -1,0 +1,233 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20ece13e57ab2a54e80667f7d20c2544, type: 3}
+  m_Name: StateMachine
+  m_EditorClassIdentifier: 
+  StartPosition: {x: -526, y: 48}
+  AnyPosition: {x: -526, y: 135}
+  States:
+  - rid: 3717255444929708293
+  - rid: 3717255444929708294
+  - rid: 3717255444929708295
+  - rid: 3717255444929708296
+  - rid: 3717255444929708297
+  - rid: 3717255444929708298
+  - rid: 3717255444929708299
+  - rid: 3717255444929708300
+  AnyTransitions: []
+  StartingState:
+    rid: 3717255444929708293
+  Parameters: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 3717255444929708293
+      type: {class: FSMC_State, ns: FSMC.Runtime, asm: FSMC.Runtime}
+      data:
+        _behaviours: []
+        Position: {x: 119, y: 48}
+        _name: Cards Placement State
+        TransitionsFrom:
+        - rid: 3717255444929708312
+        TransitionsTo:
+        - rid: 3717255444929708304
+        - rid: 3717255444929708310
+        - rid: 3717255444929708311
+    - rid: 3717255444929708294
+      type: {class: FSMC_State, ns: FSMC.Runtime, asm: FSMC.Runtime}
+      data:
+        _behaviours: []
+        Position: {x: 856, y: -524}
+        _name: Bidding State
+        TransitionsFrom:
+        - rid: 3717255444929708302
+        TransitionsTo:
+        - rid: 3717255444929708312
+    - rid: 3717255444929708295
+      type: {class: FSMC_State, ns: FSMC.Runtime, asm: FSMC.Runtime}
+      data:
+        _behaviours: []
+        Position: {x: 652, y: 102}
+        _name: Reveal State
+        TransitionsFrom:
+        - rid: 3717255444929708303
+        - rid: 3717255444929708305
+        TransitionsTo:
+        - rid: 3717255444929708302
+    - rid: 3717255444929708296
+      type: {class: FSMC_State, ns: FSMC.Runtime, asm: FSMC.Runtime}
+      data:
+        _behaviours: []
+        Position: {x: 1255, y: -524}
+        _name: GetPoint state
+        TransitionsFrom:
+        - rid: 3717255444929708304
+        - rid: 3717255444929708309
+        TransitionsTo:
+        - rid: 3717255444929708303
+    - rid: 3717255444929708297
+      type: {class: FSMC_State, ns: FSMC.Runtime, asm: FSMC.Runtime}
+      data:
+        _behaviours:
+        - rid: 3717255463628963840
+        Position: {x: 1217, y: -36}
+        _name: Win By Point State
+        TransitionsFrom:
+        - rid: 3717255444929708308
+        TransitionsTo:
+        - rid: 3717255444929708309
+    - rid: 3717255444929708298
+      type: {class: FSMC_State, ns: FSMC.Runtime, asm: FSMC.Runtime}
+      data:
+        _behaviours: []
+        Position: {x: 856, y: 665}
+        _name: Discard State
+        TransitionsFrom:
+        - rid: 3717255444929708306
+        - rid: 3717255444929708310
+        TransitionsTo:
+        - rid: 3717255444929708305
+    - rid: 3717255444929708299
+      type: {class: FSMC_State, ns: FSMC.Runtime, asm: FSMC.Runtime}
+      data:
+        _behaviours: []
+        Position: {x: 1217, y: 301}
+        _name: Eliminate Player
+        TransitionsFrom:
+        - rid: 3717255444929708307
+        - rid: 3717255444929708311
+        TransitionsTo:
+        - rid: 3717255444929708306
+    - rid: 3717255444929708300
+      type: {class: FSMC_State, ns: FSMC.Runtime, asm: FSMC.Runtime}
+      data:
+        _behaviours: []
+        Position: {x: 1521, y: 156}
+        _name: Game End
+        TransitionsFrom: []
+        TransitionsTo:
+        - rid: 3717255444929708307
+        - rid: 3717255444929708308
+    - rid: 3717255444929708302
+      type: {class: FSMC_Transition, ns: FSMC.Runtime, asm: FSMC.Runtime}
+      data:
+        conditions:
+        - conditions: []
+        _originState:
+          rid: 3717255444929708294
+        _destinationState:
+          rid: 3717255444929708295
+        _name: Bidding State->Reveal State
+    - rid: 3717255444929708303
+      type: {class: FSMC_Transition, ns: FSMC.Runtime, asm: FSMC.Runtime}
+      data:
+        conditions:
+        - conditions: []
+        _originState:
+          rid: 3717255444929708295
+        _destinationState:
+          rid: 3717255444929708296
+        _name: Reveal State->GetPoint state
+    - rid: 3717255444929708304
+      type: {class: FSMC_Transition, ns: FSMC.Runtime, asm: FSMC.Runtime}
+      data:
+        conditions:
+        - conditions: []
+        _originState:
+          rid: 3717255444929708296
+        _destinationState:
+          rid: 3717255444929708293
+        _name: GetPoint state->Cards Placement State
+    - rid: 3717255444929708305
+      type: {class: FSMC_Transition, ns: FSMC.Runtime, asm: FSMC.Runtime}
+      data:
+        conditions:
+        - conditions: []
+        _originState:
+          rid: 3717255444929708295
+        _destinationState:
+          rid: 3717255444929708298
+        _name: Reveal State->Discard State
+    - rid: 3717255444929708306
+      type: {class: FSMC_Transition, ns: FSMC.Runtime, asm: FSMC.Runtime}
+      data:
+        conditions:
+        - conditions: []
+        _originState:
+          rid: 3717255444929708298
+        _destinationState:
+          rid: 3717255444929708299
+        _name: Discard State->Eliminate Player
+    - rid: 3717255444929708307
+      type: {class: FSMC_Transition, ns: FSMC.Runtime, asm: FSMC.Runtime}
+      data:
+        conditions:
+        - conditions: []
+        _originState:
+          rid: 3717255444929708299
+        _destinationState:
+          rid: 3717255444929708300
+        _name: Eliminate Player->Game End
+    - rid: 3717255444929708308
+      type: {class: FSMC_Transition, ns: FSMC.Runtime, asm: FSMC.Runtime}
+      data:
+        conditions:
+        - conditions: []
+        _originState:
+          rid: 3717255444929708297
+        _destinationState:
+          rid: 3717255444929708300
+        _name: Win By Point State->Game End
+    - rid: 3717255444929708309
+      type: {class: FSMC_Transition, ns: FSMC.Runtime, asm: FSMC.Runtime}
+      data:
+        conditions:
+        - conditions: []
+        _originState:
+          rid: 3717255444929708296
+        _destinationState:
+          rid: 3717255444929708297
+        _name: GetPoint state->Win By Point State
+    - rid: 3717255444929708310
+      type: {class: FSMC_Transition, ns: FSMC.Runtime, asm: FSMC.Runtime}
+      data:
+        conditions:
+        - conditions: []
+        _originState:
+          rid: 3717255444929708298
+        _destinationState:
+          rid: 3717255444929708293
+        _name: Discard State->Cards Placement State
+    - rid: 3717255444929708311
+      type: {class: FSMC_Transition, ns: FSMC.Runtime, asm: FSMC.Runtime}
+      data:
+        conditions:
+        - conditions: []
+        _originState:
+          rid: 3717255444929708299
+        _destinationState:
+          rid: 3717255444929708293
+        _name: Eliminate Player->Cards Placement State
+    - rid: 3717255444929708312
+      type: {class: FSMC_Transition, ns: FSMC.Runtime, asm: FSMC.Runtime}
+      data:
+        conditions:
+        - conditions: []
+        _originState:
+          rid: 3717255444929708293
+        _destinationState:
+          rid: 3717255444929708294
+        _name: Cards Placement State->Bidding State
+    - rid: 3717255463628963840
+      type: {class: NewFSMCBehaviour, ns: , asm: Assembly-CSharp}
+      data:
+        enabled: 1

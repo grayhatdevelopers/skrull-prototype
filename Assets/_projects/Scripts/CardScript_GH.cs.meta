@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 0690cfafd6859c073808917ea61a9048
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - skullPrefab: {fileID: 272669992324660271, guid: d5c0a39f9b88ab81db7f57bd8c411bcf, type: 3}
+  - rosePrefab: {fileID: 3689978001919405207, guid: 8df8d01406a9d7cbe86f449ebee45806, type: 3}
+  - dudPrefab: {fileID: 7157546370504843867, guid: 431f52810d72997809325390ace57484, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
