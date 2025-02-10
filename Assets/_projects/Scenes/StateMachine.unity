@@ -467,8 +467,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedCard: {fileID: 0}
   hoveredCard: {fileID: 0}
-  slotPrefab: {fileID: 3655645598659960977, guid: 2fb8e0dac21bd460e93d7e94beae70a5, type: 3}
-  cardsToSpawn: 8
+  slotPrefab: {fileID: 3655645598659960977, guid: bfe22c878d98b144f99fc97e21adb01f, type: 3}
+  cardsToSpawn: 5
   cards: []
   tweenCardReturn: 0
 --- !u!114 &667881469
