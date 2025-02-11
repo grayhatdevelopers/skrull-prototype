@@ -9,6 +9,8 @@
     Discard,
     EliminatePlayer,
     Rule,
+    GameEnd
+    
     
     
 }
@@ -16,8 +18,13 @@
 public enum TriggerEvents
 {
     BiddingStarted,
-    CardSRevealing,
     // Add more triggers here
-    TwoPoints , 
+    PlacingCards,
+    CardSRevealing,
+    GainPoint,
+    TwoPointsAwarded , 
+    RemoveEliminatedPlayer,
+    ApplyNewRule, 
+    EndsGame
     
 }
