@@ -38,7 +38,7 @@ public class CardsManager : MonoBehaviour
             foreach (GameObject cards in selectedCardTypes)
             {
                 cards.GetComponent<CardInput>().cardVisual.selectionIndicator.GetComponentInChildren<TMP_Text>().text =
-                    $"{selectedCardTypes.IndexOf(cardInput.gameObject) + 1}";
+                    $"{selectedCardTypes.IndexOf(cards) + 1}";
             }
         }
     }
