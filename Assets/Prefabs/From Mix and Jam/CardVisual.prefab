@@ -269,7 +269,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5434269512320548843}
-  m_LocalRotation: {x: -0.01863826, y: -0.112942904, z: 0.24873583, w: -0.9617833}
+  m_LocalRotation: {x: 0.017396443, y: -0.10171058, z: 0.24631369, w: -0.96368146}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -350,7 +350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c73809c3b87e04a6dae1308b12ab4749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentCard: {fileID: 0}
+  parentCardInput: {fileID: 0}
   cardType: 0
   visualShadow: {fileID: 9157190824811683565}
   shakeParent: {fileID: 3449025543118524474}

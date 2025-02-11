@@ -6,14 +6,16 @@ using UnityEngine.EventSystems;
 using Unity.Collections;
 using UnityEngine.UI;
 using Unity.VisualScripting;
+using UnityEngine.Serialization;
 
 public class CardVisual : MonoBehaviour
 {
     private bool initalize = false;
 
 
+    [FormerlySerializedAs("parentCard")]
     [Header("Card")]
-    public Card parentCard;
+    public CardInput parentCardInput;
     private Transform cardTransform;
     private Vector3 rotationDelta;
     private int savedIndex;
@@ -102,22 +104,22 @@ public class CardVisual : MonoBehaviour
         shadowDistance = visualShadow.localPosition;
     }
 
-    public void Initialize(Card target, int index = 0)
+    public void Initialize(CardInput target, int index = 0)
     {
         //Declarations
-        parentCard = target;
+        parentCardInput = target;
         cardTransform = target.transform;
         canvas = GetComponent<Canvas>();
         shadowCanvas = visualShadow.GetComponent<Canvas>();
 
         //Event Listening
-        parentCard.PointerEnterEvent.AddListener(PointerEnter);
-        parentCard.PointerExitEvent.AddListener(PointerExit);
-        parentCard.BeginDragEvent.AddListener(BeginDrag);
-        parentCard.EndDragEvent.AddListener(EndDrag);
-        parentCard.PointerDownEvent.AddListener(PointerDown);
-        parentCard.PointerUpEvent.AddListener(PointerUp);
-        parentCard.SelectEvent.AddListener(Select);
+        parentCardInput.PointerEnterEvent.AddListener(PointerEnter);
+        parentCardInput.PointerExitEvent.AddListener(PointerExit);
+        parentCardInput.BeginDragEvent.AddListener(BeginDrag);
+        parentCardInput.EndDragEvent.AddListener(EndDrag);
+        parentCardInput.PointerDownEvent.AddListener(PointerDown);
+        parentCardInput.PointerUpEvent.AddListener(PointerUp);
+        parentCardInput.SelectEvent.AddListener(Select);
 
         //Initialization
         initalize = true;
@@ -125,12 +127,12 @@ public class CardVisual : MonoBehaviour
 
     public void UpdateIndex(int length)
     {
-        transform.SetSiblingIndex(parentCard.transform.parent.GetSiblingIndex());
+        transform.SetSiblingIndex(parentCardInput.transform.parent.GetSiblingIndex());
     }
 
     void Update()
     {
-        if (!initalize || parentCard == null) return;
+        if (!initalize || parentCardInput == null) return;
 
         HandPositioning();
         SmoothFollow();
@@ -140,15 +142,15 @@ public class CardVisual : MonoBehaviour
 
     private void HandPositioning()
     {
-        curveYOffset = (curve.positioning.Evaluate(parentCard.NormalizedPosition()) * curve.positioningInfluence) *
-                       parentCard.SiblingAmount();
-        curveYOffset = parentCard.SiblingAmount() < 5 ? 0 : curveYOffset;
-        curveRotationOffset = curve.rotation.Evaluate(parentCard.NormalizedPosition());
+        curveYOffset = (curve.positioning.Evaluate(parentCardInput.NormalizedPosition()) * curve.positioningInfluence) *
+                       parentCardInput.SiblingAmount();
+        curveYOffset = parentCardInput.SiblingAmount() < 5 ? 0 : curveYOffset;
+        curveRotationOffset = curve.rotation.Evaluate(parentCardInput.NormalizedPosition());
     }
 
     private void SmoothFollow()
     {
-        Vector3 verticalOffset = (Vector3.up * (parentCard.isDragging ? 0 : curveYOffset));
+        Vector3 verticalOffset = (Vector3.up * (parentCardInput.isDragging ? 0 : curveYOffset));
         transform.position = Vector3.Lerp(transform.position, cardTransform.position + verticalOffset,
             followSpeed * Time.deltaTime);
     }
@@ -157,7 +159,7 @@ public class CardVisual : MonoBehaviour
     {
         Vector3 movement = (transform.position - cardTransform.position);
         movementDelta = Vector3.Lerp(movementDelta, movement, 25 * Time.deltaTime);
-        Vector3 movementRotation = (parentCard.isDragging ? movementDelta : movement) * rotationAmount;
+        Vector3 movementRotation = (parentCardInput.isDragging ? movementDelta : movement) * rotationAmount;
         rotationDelta = Vector3.Lerp(rotationDelta, movementRotation, rotationSpeed * Time.deltaTime);
         transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y,
             Mathf.Clamp(rotationDelta.x, -60, 60));
@@ -165,16 +167,16 @@ public class CardVisual : MonoBehaviour
 
     private void CardTilt()
     {
-        savedIndex = parentCard.isDragging ? savedIndex : parentCard.ParentIndex();
-        float sine = Mathf.Sin(Time.time + savedIndex) * (parentCard.isHovering ? .2f : 1);
-        float cosine = Mathf.Cos(Time.time + savedIndex) * (parentCard.isHovering ? .2f : 1);
+        savedIndex = parentCardInput.isDragging ? savedIndex : parentCardInput.ParentIndex();
+        float sine = Mathf.Sin(Time.time + savedIndex) * (parentCardInput.isHovering ? .2f : 1);
+        float cosine = Mathf.Cos(Time.time + savedIndex) * (parentCardInput.isHovering ? .2f : 1);
 
         Vector3 offset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        float tiltX = parentCard.isHovering ? ((offset.y * -1) * manualTiltAmount) : 0;
-        float tiltY = parentCard.isHovering ? ((offset.x) * manualTiltAmount) : 0;
-        float tiltZ = parentCard.isDragging
+        float tiltX = parentCardInput.isHovering ? ((offset.y * -1) * manualTiltAmount) : 0;
+        float tiltY = parentCardInput.isHovering ? ((offset.x) * manualTiltAmount) : 0;
+        float tiltZ = parentCardInput.isDragging
             ? tiltParent.eulerAngles.z
-            : (curveRotationOffset * (curve.rotationInfluence * parentCard.SiblingAmount()));
+            : (curveRotationOffset * (curve.rotationInfluence * parentCardInput.SiblingAmount()));
 
         float lerpX = Mathf.LerpAngle(tiltParent.eulerAngles.x, tiltX + (sine * autoTiltAmount),
             tiltSpeed * Time.deltaTime);
@@ -185,7 +187,7 @@ public class CardVisual : MonoBehaviour
         tiltParent.eulerAngles = new Vector3(lerpX, lerpY, lerpZ);
     }
 
-    private void Select(Card card, bool state)
+    private void Select(CardInput cardInput, bool state)
     {
         DOTween.Kill(2, true);
         float dir = state ? 1 : 0;
@@ -194,6 +196,11 @@ public class CardVisual : MonoBehaviour
 
         if (scaleAnimations)
             transform.DOScale(scaleOnHover, scaleTransition).SetEase(scaleEase);
+
+        if (state)
+        {
+            NetworkManager.Instance.selectedCardTypes.Add(cardInput.cardVisual.cardType);
+        }
     }
 
     public void Swap(float dir = 1)
@@ -206,7 +213,7 @@ public class CardVisual : MonoBehaviour
             .SetId(3);
     }
 
-    private void BeginDrag(Card card)
+    private void BeginDrag(CardInput cardInput)
     {
         if (scaleAnimations)
             transform.DOScale(scaleOnSelect, scaleTransition).SetEase(scaleEase);
@@ -214,13 +221,13 @@ public class CardVisual : MonoBehaviour
         canvas.overrideSorting = true;
     }
 
-    private void EndDrag(Card card)
+    private void EndDrag(CardInput cardInput)
     {
         canvas.overrideSorting = false;
         transform.DOScale(1, scaleTransition).SetEase(scaleEase);
     }
 
-    private void PointerEnter(Card card)
+    private void PointerEnter(CardInput cardInput)
     {
         if (scaleAnimations)
             transform.DOScale(scaleOnHover, scaleTransition).SetEase(scaleEase);
@@ -229,13 +236,13 @@ public class CardVisual : MonoBehaviour
         shakeParent.DOPunchRotation(Vector3.forward * hoverPunchAngle, hoverTransition, 20, 1).SetId(2);
     }
 
-    private void PointerExit(Card card)
+    private void PointerExit(CardInput cardInput)
     {
-        if (!parentCard.wasDragged)
+        if (!parentCardInput.wasDragged)
             transform.DOScale(1, scaleTransition).SetEase(scaleEase);
     }
 
-    private void PointerUp(Card card, bool longPress)
+    private void PointerUp(CardInput cardInput, bool longPress)
     {
         if (scaleAnimations)
             transform.DOScale(longPress ? scaleOnHover : scaleOnSelect, scaleTransition).SetEase(scaleEase);
@@ -245,7 +252,7 @@ public class CardVisual : MonoBehaviour
         shadowCanvas.overrideSorting = true;
     }
 
-    private void PointerDown(Card card)
+    private void PointerDown(CardInput cardInput)
     {
         if (scaleAnimations)
             transform.DOScale(scaleOnSelect, scaleTransition).SetEase(scaleEase);

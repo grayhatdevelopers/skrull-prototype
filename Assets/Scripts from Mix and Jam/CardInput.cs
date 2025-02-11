@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using System.Collections;
 using UnityEngine.UI;
 
-public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler, IPointerDownHandler
+public class CardInput : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler, IPointerDownHandler
 {
     private Canvas canvas;
     private Image imageComponent;
@@ -32,13 +32,13 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     [HideInInspector] public bool wasDragged;
 
     [Header("Events")]
-    [HideInInspector] public UnityEvent<Card> PointerEnterEvent;
-    [HideInInspector] public UnityEvent<Card> PointerExitEvent;
-    [HideInInspector] public UnityEvent<Card, bool> PointerUpEvent;
-    [HideInInspector] public UnityEvent<Card> PointerDownEvent;
-    [HideInInspector] public UnityEvent<Card> BeginDragEvent;
-    [HideInInspector] public UnityEvent<Card> EndDragEvent;
-    [HideInInspector] public UnityEvent<Card, bool> SelectEvent;
+    [HideInInspector] public UnityEvent<CardInput> PointerEnterEvent;
+    [HideInInspector] public UnityEvent<CardInput> PointerExitEvent;
+    [HideInInspector] public UnityEvent<CardInput, bool> PointerUpEvent;
+    [HideInInspector] public UnityEvent<CardInput> PointerDownEvent;
+    [HideInInspector] public UnityEvent<CardInput> BeginDragEvent;
+    [HideInInspector] public UnityEvent<CardInput> EndDragEvent;
+    [HideInInspector] public UnityEvent<CardInput, bool> SelectEvent;
 
     void Start()
     {
