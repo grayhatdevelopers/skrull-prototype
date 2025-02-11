@@ -53,7 +53,7 @@ public class CardPlacementState : State
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            gameMachine.Trigger(TriggerEvents.BiddingStarted.ToString());
+            gameMachine.Trigger(TriggerEvents.CardSRevealing.ToString());
         }
     }
 

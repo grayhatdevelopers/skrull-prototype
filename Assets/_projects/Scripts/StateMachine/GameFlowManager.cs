@@ -31,6 +31,9 @@ public class GameFlowManager : MonoBehaviour
     {
         GameFlowMachine.AddState(States.CardPlacement.ToString(), new CardPlacementState(GameFlowMachine));
         GameFlowMachine.AddState(States.Bid.ToString(), new BiddingState(GameFlowMachine));
+        GameFlowMachine.AddState(States.Reveal.ToString(), new RevealState(GameFlowMachine));
+        GameFlowMachine.AddState(States.WinByPoints.ToString(), new WinByPointState(GameFlowMachine));
+        GameFlowMachine.AddState(States.Discard.ToString() , new DiscardState(GameFlowMachine));
     }
 
     private void AddTransitions()
