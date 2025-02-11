@@ -3,15 +3,26 @@ using UnityEngine.EventSystems;
 
 public class DropZone : MonoBehaviour, IDropHandler
 {
+    public CardPlacementState cardPlacementState;
     public void OnDrop(PointerEventData eventData)
     {
-        DraggableCard draggable = eventData.pointerDrag.GetComponent<DraggableCard>();
+        GameObject droppedCard = eventData.pointerDrag;
 
-        if (draggable != null)
+        if (droppedCard != null)
         {
-            draggable.transform.SetParent(transform, true); // Keep UI scaling correct
-            draggable.GetComponent<RectTransform>().anchoredPosition = Vector2.zero; // Center the card
-            draggable.transform.SetAsLastSibling(); // Bring the card to the front
+            droppedCard.transform.SetParent(transform, true); 
+            droppedCard.GetComponent<RectTransform>().anchoredPosition = Vector2.zero; 
+            droppedCard.transform.SetAsLastSibling();
+
+            if (cardPlacementState != null)
+            {
+                cardPlacementState.PlaceCard(droppedCard.gameObject); ;
+            }
+            else
+            {
+                Debug.LogError("Draggable card is not assigned in drop zone");
+            }
+            
         }
     }
 }
