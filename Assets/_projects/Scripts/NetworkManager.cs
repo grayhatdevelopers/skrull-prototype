@@ -42,4 +42,6 @@ public class NetworkManager : MonoBehaviour
         cardsHolder.SetActive(true);
         gameFlowManager.InitStateMachine();
     }
+    
+
 }

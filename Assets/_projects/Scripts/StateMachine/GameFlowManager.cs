@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityHFSM;
 
 public class GameFlowManager : MonoBehaviour
@@ -7,7 +8,13 @@ public class GameFlowManager : MonoBehaviour
     public StateMachine GameFlowMachine { get; private set; }
 
     public States CurrentState { get; private set; }
+    
+    public Button playButton;
 
+    private void Awake()
+    {
+        playButton.onClick.AddListener(PlaySelectedCards);
+    }
 
     public void InitStateMachine()
     {
@@ -41,4 +48,15 @@ public class GameFlowManager : MonoBehaviour
 
         Debug.Log(GameFlowMachine.GetActiveHierarchyPath());
     }
+    
+    #region UI Methods
+    // Called from the UI, only in one state
+    private void PlaySelectedCards()
+    {
+        Debug.Log("Played Cards");
+        // Get selected card types and data from a cards manager.
+        // NetworkManager.Instance.PlayTurn(data)
+    }
+    #endregion
+    
 }

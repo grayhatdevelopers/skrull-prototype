@@ -20,7 +20,7 @@ public class CardPlacementState : State
     public override void OnLogic()
     {
         base.OnLogic();
-
+        
         if (Input.GetKeyDown(KeyCode.Space))
         {
             gameMachine.Trigger(TriggerEvents.BiddingStarted.ToString());
