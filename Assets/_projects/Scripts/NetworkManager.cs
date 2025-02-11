@@ -15,6 +15,8 @@ public class NetworkManager : MonoBehaviour
 
     public static NetworkManager Instance { get; private set; }
     private PlayroomKit prk;
+    
+    private List<PlayroomKit.Player> players = new List<PlayroomKit.Player>();
 
     private void Awake()
     {
@@ -51,6 +53,8 @@ public class NetworkManager : MonoBehaviour
     {
         cardsHolder.SetActive(true);
         gameFlowManager.InitStateMachine();
+        
+        players.Add(player);
     }
 
     public void PlayTurn(object data = null)
