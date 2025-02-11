@@ -93,26 +93,12 @@ namespace Playroom
             string GetPlayerStateDictionaryWrapper(string playerID, string key);
 
             string GetProfileWrapper(string playerID);
-
             //
+
             void SetPersistentDataWrapper(string key, string value);
             void InsertPersistentDataWrapper(string key, string value);
 
-            void GetPersistentDataWrapper(string key, Action<string, string> onGetPersistentDataCallback);
-
-            #region Turnbased
-
-            string GetChallengeIdWrapper();
-
-            void SaveMyTurnDataWrapper(string data);
-
-            void GetAllTurnsWrapper(Action<string> callback);
-
-            void GetMyTurnDataWrapper(Action<string> callback);
-
-            void ClearTurnsWrapper(Action callback = null);
-
-            #endregion
+            string GetPersistentDataWrapper(string key, Action<string, string> onGetPersistentDataCallback);
         }
     }
 }

@@ -167,48 +167,17 @@ namespace Playroom
 
         public void CreateJoyStick(JoystickOptions options)
         {
-            DebugLogger.LogWarning("[MockMode] Joystick is currently not supported in local mode!");
+            throw new NotImplementedException();
         }
 
         public Dpad DpadJoystick()
         {
-            DebugLogger.LogWarning("[MockMode] Joystick is currently not supported in local mode!");
-            return default;
+            throw new NotImplementedException();
         }
 
         public void UnsubscribeOnQuit()
         {
-            DebugLogger.LogWarning("[MockMode] Unsubscribe on quit is currently not supported in local mode!");
+            throw new NotImplementedException();
         }
-
-        #region Turbased
-
-        public string GetChallengeId()
-        {
-            DebugLogger.LogWarning("[MockMode] Turn based API is currently not supported in local mode!");
-            return default;
-        }
-
-        public void SaveMyTurnData(object data)
-        {
-            DebugLogger.LogWarning("[MockMode] Turn based API is currently not supported in local mode!");
-        }
-
-        public void GetMyTurnData(Action<string> callback)
-        {
-            DebugLogger.LogWarning("[MockMode] Turn based API is currently not supported in local mode!");
-        }
-
-        public void GetAllTurns(Action<string> callback)
-        {
-            DebugLogger.LogWarning("[MockMode] Turn based API is currently not supported in local mode!");
-        }
-
-        public void ClearTurns(Action callback)
-        {
-            DebugLogger.LogWarning("[MockMode] Turn based API is currently not supported in local mode!");
-        }
-
-        #endregion
     }
 }

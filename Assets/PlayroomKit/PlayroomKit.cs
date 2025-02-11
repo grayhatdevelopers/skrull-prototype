@@ -57,39 +57,42 @@ namespace Playroom
             _rpc = rpc;
         }
 
-        private static void CheckPlayRoomInitialized()
-        {
-            if (!IsPlayRoomInitialized)
-            {
-                Debug.LogError("Playroom not initialized yet! Please call InsertCoin.");
-                return;
-            }
-        }
-
         public void InsertCoin(InitOptions options = null, Action onLaunchCallBack = null,
             Action onDisconnectCallback = null)
         {
             _playroomService.InsertCoin(options, onLaunchCallBack, onDisconnectCallback);
         }
 
-        public void OnPlayerJoin(Action<Player> onPlayerJoinCallback)
-        {
-            CheckPlayRoomInitialized();
-            _playroomService.OnPlayerJoin(onPlayerJoinCallback);
-        }
-
         public bool IsHost()
         {
-            CheckPlayRoomInitialized();
+            if (!IsPlayRoomInitialized)
+            {
+                Debug.LogError("[Mock Mode] Playroom not initialized yet! Please call InsertCoin.");
+                return false;
+            }
 
             return _playroomService.IsHost();
         }
 
         private void TransferHost(string playerId)
         {
-            CheckPlayRoomInitialized();
+            if (!IsPlayRoomInitialized)
+            {
+                Debug.LogError("[Mock Mode] Playroom not initialized yet! Please call InsertCoin.");
+            }
 
             _playroomService.TransferHost(playerId);
+        }
+
+        public void OnPlayerJoin(Action<Player> onPlayerJoinCallback)
+        {
+            if (!IsPlayRoomInitialized)
+            {
+                Debug.LogError("PlayroomKit is not loaded!. Please make sure to call InsertCoin first.");
+                return;
+            }
+
+            _playroomService.OnPlayerJoin(onPlayerJoinCallback);
         }
 
         public Player GetPlayer(string playerId)
@@ -155,14 +158,22 @@ namespace Playroom
 
         public void SetState<T>(string key, T value, bool reliable = false)
         {
-            CheckPlayRoomInitialized();
+            if (!IsPlayRoomInitialized)
+            {
+                Debug.LogError("PlayroomKit is not loaded!. Please make sure to call InsertCoin first.");
+                return;
+            }
 
             _playroomService.SetState(key, value, reliable);
         }
 
         public T GetState<T>(string key)
         {
-            CheckPlayRoomInitialized();
+            if (!IsPlayRoomInitialized)
+            {
+                Debug.LogError("PlayroomKit is not loaded!. Please make sure to call InsertCoin first.");
+                return default;
+            }
 
             return _playroomService.GetState<T>(key);
         }
@@ -176,28 +187,39 @@ namespace Playroom
         public void RpcRegister(string name, Action<string, string> rpcRegisterCallback,
             string onResponseReturn = null)
         {
-            CheckPlayRoomInitialized();
+            if (!IsPlayRoomInitialized)
+            {
+                Debug.LogError("PlayroomKit is not loaded!. Please make sure to call InsertCoin first.");
+                return;
+            }
 
             _rpc.RpcRegister(name, rpcRegisterCallback, onResponseReturn);
         }
 
         public void RpcCall(string name, object data, Action callbackOnResponse = null)
         {
-            CheckPlayRoomInitialized();
+            if (!IsPlayRoomInitialized)
+            {
+                Debug.LogError("PlayroomKit is not loaded!. Please make sure to call InsertCoin first.");
+                return;
+            }
 
             _rpc.RpcCall(name, data, callbackOnResponse);
         }
 
         public void RpcCall(string name, object data, RpcMode mode, Action callbackOnResponse = null)
         {
-            CheckPlayRoomInitialized();
+            if (!IsPlayRoomInitialized)
+            {
+                Debug.LogError("PlayroomKit is not loaded!. Please make sure to call InsertCoin first.");
+                return;
+            }
 
             _rpc.RpcCall(name, data, mode, callbackOnResponse);
         }
 
         public void StartMatchmaking(Action callback = null)
         {
-            CheckPlayRoomInitialized();
             _playroomService.StartMatchmaking(callback);
         }
 
@@ -218,9 +240,9 @@ namespace Playroom
 
         public string GetRoomCode()
         {
-            CheckPlayRoomInitialized();
             return _playroomService.GetRoomCode();
         }
+
 
         public void OnDisconnect(Action callback)
         {
@@ -229,7 +251,11 @@ namespace Playroom
 
         public bool IsStreamScreen()
         {
-            CheckPlayRoomInitialized();
+            if (!IsPlayRoomInitialized)
+            {
+                Debug.LogError("[Mock Mode] Playroom not initialized yet! Please call InsertCoin.");
+                return false;
+            }
 
             return _playroomService.IsStreamScreen();
         }
@@ -267,77 +293,63 @@ namespace Playroom
 
         public Player MyPlayer()
         {
-            CheckPlayRoomInitialized();
+            if (!IsPlayRoomInitialized)
+            {
+                Debug.LogError("[Mock Mode] Playroom not initialized yet! Please call InsertCoin.");
+                return null;
+            }
 
             return _playroomService.MyPlayer();
         }
 
         public Player Me()
         {
-            CheckPlayRoomInitialized();
-            return _playroomService.Me();
-        }
+            if (!IsPlayRoomInitialized)
+            {
+                Debug.LogError("[Mock Mode] Playroom not initialized yet! Please call InsertCoin.");
+                return null;
+            }
 
-        private void UnsubscribeOnQuit()
-        {
-            _playroomService.UnsubscribeOnQuit();
+            return _playroomService.Me();
         }
 
         #region Persistence
 
         public void SetPersistentData(string key, object value)
         {
-            CheckPlayRoomInitialized();
+            if (!IsPlayRoomInitialized)
+            {
+                Debug.LogError("[Mock Mode] Playroom not initialized yet! Please call InsertCoin.");
+            }
 
             _playroomService.SetPersistentData(key, value);
         }
 
         public void InsertPersistentData(string key, object value)
         {
-            CheckPlayRoomInitialized();
+            if (!IsPlayRoomInitialized)
+            {
+                Debug.LogError("[Mock Mode] Playroom not initialized yet! Please call InsertCoin.");
+            }
+
             _playroomService.InsertPersistentData(key, value);
         }
 
         public void GetPersistentData(string key, Action<string> onGetPersistentDataCallback)
         {
-            CheckPlayRoomInitialized();
+            if (!IsPlayRoomInitialized)
+            {
+                Debug.LogError("[Mock Mode] Playroom not initialized yet! Please call InsertCoin.");
+            }
+
             _playroomService.GetPersistentData(key, onGetPersistentDataCallback);
         }
 
         #endregion
 
-        #region Turn Based
-
-        public string GetChallengeId()
+        private void UnsubscribeOnQuit()
         {
-            CheckPlayRoomInitialized();
-            return _playroomService.GetChallengeId();
+            _playroomService.UnsubscribeOnQuit();
         }
-
-        public void SaveMyTurnData(object data)
-        {
-            CheckPlayRoomInitialized();
-            _playroomService.SaveMyTurnData(data);
-        }
-
-        public void GetMyTurnData(Action<string> callback)
-        {
-            CheckPlayRoomInitialized();
-            _playroomService.GetMyTurnData(callback);
-        }
-
-        public void GetAllTurns(Action<string> callback)
-        {
-            CheckPlayRoomInitialized();
-            _playroomService.GetAllTurns(callback);
-        }
-
-        public void ClearTurns(Action callback = null)
-        {
-            CheckPlayRoomInitialized();
-            _playroomService.ClearTurns(callback);
-        }
-
-        #endregion
     }
 }

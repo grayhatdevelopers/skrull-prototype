@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Reflection;
 using UBB;
 using UnityEngine;
@@ -31,24 +30,7 @@ namespace Playroom
             _ubb.StartUBB();
 
             string optionsJson = null;
-
-            if (options.turnBased is bool turnBased)
-            {
-                if (turnBased)
-                {
-                    options.persistentMode = true;
-                    optionsJson = Helpers.SerializeInitOptions(options);
-                }
-            }
-            else if (options.turnBased is TurnBasedOptions turnBasedOptions)
-            {
-                if (!string.IsNullOrEmpty(turnBasedOptions.challengeId))
-                {
-                    options.persistentMode = true;
-                    optionsJson = Helpers.SerializeInitOptions(options);
-                }
-            }
-            else if (string.IsNullOrEmpty(options.roomCode) && !options.persistentMode)
+            if (string.IsNullOrEmpty(options.roomCode) && !options.persistentMode)
             {
                 options.roomCode = "TEST_ROOM";
                 optionsJson = Helpers.SerializeInitOptions(options);
@@ -153,6 +135,23 @@ namespace Playroom
             return _ubb.CallJs<T>("GetState", null, null, false, key);
         }
 
+        public void SetPersistentData(string key, object value)
+        {
+            string jsonString = JsonUtility.ToJson(value);
+            _ubb.CallJs("SetPersistentData", null, null, true, key, jsonString);
+        }
+
+        public void InsertPersistentData(string key, object value)
+        {
+            string jsonString = JsonUtility.ToJson(value);
+            _ubb.CallJs("InsertPersistentData", null, null, true, key, jsonString);
+        }
+
+        public void GetPersistentData(string key, Action<string> onGetPersistentDataCallback)
+        {
+            string dataJson = _ubb.CallJs<string>("GetPersistentData", null, null, true, key);
+            onGetPersistentDataCallback?.Invoke(dataJson);
+        }
 
         public void WaitForState(string stateKey, Action<string> onStateSetCallback = null)
         {
@@ -193,74 +192,9 @@ namespace Playroom
 
         #endregion
 
-        #region Persistent API
-
-        public void SetPersistentData(string key, object value)
-        {
-            string jsonString = JsonUtility.ToJson(value);
-            _ubb.CallJs("SetPersistentData", null, null, true, key, jsonString);
-        }
-
-        public void InsertPersistentData(string key, object value)
-        {
-            string jsonString = JsonUtility.ToJson(value);
-            _ubb.CallJs("InsertPersistentData", null, null, true, key, jsonString);
-        }
-
-        public void GetPersistentData(string key, Action<string> onGetPersistentDataCallback)
-        {
-            string dataJson = _ubb.CallJs<string>("GetPersistentData", null, null, true, key);
-            onGetPersistentDataCallback?.Invoke(dataJson);
-        }
-
-        #endregion
-
-        #region Turn Based
-
-        public string GetChallengeId()
-        {
-            return _ubb.CallJs<string>("GetChallengeId");
-        }
-
-        public void SaveMyTurnData(object data)
-        {
-            string jsonData;
-
-            if (data is int || data is string || data is float)
-            {
-                jsonData = JSONNode.Parse(data.ToString()).ToString();
-            }
-            else
-            {
-                jsonData = JsonUtility.ToJson(data);
-            }
-
-            _ubb.CallJs("SaveMyTurnData", null, null, true, jsonData);
-        }
-
-        public void GetMyTurnData(Action<string> callback)
-        {
-            string data = _ubb.CallJs<string>("GetMyTurnData", null, null, true);
-            callback.Invoke(data);
-        }
-
-        public void GetAllTurns(Action<string> callback)
-        {
-            string data = _ubb.CallJs<string>("GetAllTurns", null, null, true);
-            callback.Invoke(data);
-        }
-
-        public void ClearTurns(Action callback)
-        {
-            _ubb.CallJs("ClearTurns", null, null, true);
-            callback.Invoke();
-        }
-
-        #endregion
-
-
         #region Misc
 
+        // TODO: will implement after Player is implemented.
         public void UnsubscribeOnQuit()
         {
             throw new NotImplementedException();
