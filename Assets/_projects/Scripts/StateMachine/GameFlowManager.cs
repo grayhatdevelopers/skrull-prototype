@@ -8,7 +8,7 @@ public class GameFlowManager : MonoBehaviour
 
     public States CurrentState { get; private set; }
 
-
+//
     private void Start()
     {
         // Create the state machine
