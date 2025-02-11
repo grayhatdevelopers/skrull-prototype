@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: 611586618174238837, guid: bfe22c878d98b144f99fc97e21adb01f, type: 3}
       propertyPath: cardVisualPrefab
       value: 
-      objectReference: {fileID: 7310339964073049012, guid: d1ef1ba3b6ae25345bed93cdcb65ccc1, type: 3}
+      objectReference: {fileID: 7247660541321642654, guid: d1ef1ba3b6ae25345bed93cdcb65ccc1, type: 3}
     - target: {fileID: 2346250072548168058, guid: bfe22c878d98b144f99fc97e21adb01f, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

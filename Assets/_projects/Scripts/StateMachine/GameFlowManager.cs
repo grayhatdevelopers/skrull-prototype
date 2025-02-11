@@ -54,8 +54,7 @@ public class GameFlowManager : MonoBehaviour
     private void PlaySelectedCards()
     {
         Debug.Log("Played Cards");
-        // Get selected card types and data from a cards manager.
-        // NetworkManager.Instance.PlayTurn(data)
+        NetworkManager.Instance.PlayTurn();
     }
     #endregion
     

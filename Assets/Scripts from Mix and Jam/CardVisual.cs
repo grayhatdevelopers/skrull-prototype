@@ -2,6 +2,8 @@ using System;
 using UnityEngine;
 using DG.Tweening;
 using System.Collections;
+using TMPro;
+using TMPro.EditorUtilities;
 using UnityEngine.EventSystems;
 using Unity.Collections;
 using UnityEngine.UI;
@@ -12,7 +14,6 @@ public class CardVisual : MonoBehaviour
 {
     private bool initalize = false;
 
-
     [FormerlySerializedAs("parentCard")]
     [Header("Card")]
     public CardInput parentCardInput;
@@ -21,6 +22,9 @@ public class CardVisual : MonoBehaviour
     private int savedIndex;
     Vector3 movementDelta;
     private Canvas canvas;
+
+    [SerializeField]
+    public GameObject selectionIndicator;
 
     public enum CardType
     {
@@ -197,10 +201,8 @@ public class CardVisual : MonoBehaviour
         if (scaleAnimations)
             transform.DOScale(scaleOnHover, scaleTransition).SetEase(scaleEase);
 
-        if (state)
-        {
-            NetworkManager.Instance.selectedCardTypes.Add(cardInput.cardVisual.cardType);
-        }
+        
+        CardsManager.Instance.SelectedCards(cardInput, state, selectionIndicator);
     }
 
     public void Swap(float dir = 1)
