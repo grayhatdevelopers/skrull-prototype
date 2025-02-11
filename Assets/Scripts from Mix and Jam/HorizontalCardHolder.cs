@@ -30,6 +30,11 @@ public class HorizontalCardHolder : MonoBehaviour
     [SerializeField]
     private bool tweenCardReturn = true;
 
+    private void Awake()
+    {
+        gameObject.SetActive(false);
+    }
+
     void Start()
     {
         for (int i = 0; i < rosesToSpawn; i++)

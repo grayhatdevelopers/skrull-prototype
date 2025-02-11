@@ -111,7 +111,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2017949772597159594}
-  m_LocalRotation: {x: 0, y: 0, z: 0.988269, w: -0.15272333}
+  m_LocalRotation: {x: 0, y: 0, z: 0.25154126, w: 0.9678466}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -269,7 +269,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5434269512320548843}
-  m_LocalRotation: {x: 0.046235625, y: 0.031026497, z: -0.98697096, w: -0.150957}
+  m_LocalRotation: {x: -0.01863826, y: -0.112942904, z: 0.24873583, w: -0.9617833}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -351,6 +351,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentCard: {fileID: 0}
+  cardType: 0
   visualShadow: {fileID: 9157190824811683565}
   shakeParent: {fileID: 3449025543118524474}
   tiltParent: {fileID: 5862976466474931636}

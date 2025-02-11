@@ -200,7 +200,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.5882353, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.21960784, g: 0.16862746, b: 0.14901961, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -467,8 +467,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedCard: {fileID: 0}
   hoveredCard: {fileID: 0}
-  slotPrefab: {fileID: 3655645598659960977, guid: bfe22c878d98b144f99fc97e21adb01f, type: 3}
-  cardsToSpawn: 5
+  dudSlotPrefab: {fileID: 7608107861074532156, guid: e4aca23a92c4ee94fb0fa0348e8dc4f1, type: 3}
+  roseSlotPrefab: {fileID: 3655645598659960977, guid: bfe22c878d98b144f99fc97e21adb01f, type: 3}
+  skullSlotPrefab: {fileID: 8967202320872467186, guid: 60eee8a5db2272d4d9550246dd0816d4, type: 3}
+  rosesToSpawn: 3
   cards: []
   tweenCardReturn: 0
 --- !u!114 &667881469
@@ -553,6 +555,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1632653602
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1632653603}
+  - component: {fileID: 1632653604}
+  m_Layer: 0
+  m_Name: NetworkManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1632653603
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1632653602}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1632653604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1632653602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de618efb0b4ac5243aa12b7544daa3c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardsHolder: {fileID: 0}
+  gameFlowManager: {fileID: 0}
 --- !u!1 &2004274446
 GameObject:
   m_ObjectHideFlags: 0
@@ -855,3 +903,4 @@ SceneRoots:
   - {fileID: 2004274449}
   - {fileID: 2014619536}
   - {fileID: 1545616293}
+  - {fileID: 1632653603}

@@ -9,23 +9,19 @@ public class GameFlowManager : MonoBehaviour
     public States CurrentState { get; private set; }
 
 
-    private void Start()
+    public void InitStateMachine()
     {
-        // Create the state machine
         GameFlowMachine = new StateMachine();
-
         // Set the current state
         CurrentState = States.CardPlacement;
 
         AddStatesToMachine();
         AddTransitions();
-
         // Set the start state
         GameFlowMachine.SetStartState(States.CardPlacement.ToString());
         // Initialize the state machine
         GameFlowMachine.Init();
     }
-
 
     private void AddStatesToMachine()
     {
