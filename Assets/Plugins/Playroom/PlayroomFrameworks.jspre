@@ -26256,7 +26256,7 @@ Use Chrome, Firefox or Internet Explorer 11`);
       Qi.splice(o, 1);
     }), n;
   }
-  const W5 = "0.0.86", Gu = {
+  const W5 = "0.0.87", Gu = {
     version: W5
   };
   async function TE(t10) {
@@ -26277,7 +26277,10 @@ Use Chrome, Firefox or Internet Explorer 11`);
     await v3("_turns", void 0);
   }
   async function PE() {
-    const t10 = await a1("_turns"), e = (t10 == null ? void 0 : t10.filter((n) => n.player === Hn().id)) || [];
+    const t10 = await a1("_turns"), e = (t10 == null ? void 0 : t10.filter((n) => {
+      var o;
+      return (typeof n.player == "string" ? n.player : (o = n.player) == null ? void 0 : o.id) === Hn().id;
+    })) || [];
     return e[e.length - 1] || void 0;
   }
   const lg = `/*!

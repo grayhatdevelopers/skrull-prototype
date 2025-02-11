@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Playroom;
+using SimpleJSON;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -34,6 +35,7 @@ public class NetworkManager : MonoBehaviour
         InitOptions options = new InitOptions
         {
             maxPlayersPerRoom = 6,
+            turnBased = true,
             skipLobby = true,
         };
 
@@ -42,13 +44,18 @@ public class NetworkManager : MonoBehaviour
 
     private void OnLaunch()
     {
+        prk.OnPlayerJoin(AddPlayer);
+    }
+
+    private void AddPlayer(PlayroomKit.Player player)
+    {
         cardsHolder.SetActive(true);
         gameFlowManager.InitStateMachine();
     }
 
     public void PlayTurn(object data = null)
     {
-        prk.SaveMyTurnData(CardsManager.Instance.selectedCardTypes);
+        prk.SaveMyTurnData("Temporary data");
         gameFlowManager.playButton.interactable = false;
 
         NextPlayerTurn();
@@ -62,8 +69,43 @@ public class NetworkManager : MonoBehaviour
             // if it's my turn, enable the play button
             // if it's not my turn, disable the play button
             gameFlowManager.playButton.interactable = false;
-            
 
+            // convert the json data to a list of AllDataHandler using simpleJSON
+            var allData = JSON.Parse(data);
+
+            Debug.Log(allData);
+
+            List<TurnData> allDataList = new List<TurnData>();
+            for (int i = 0; i < allData.Count; i++)
+            {
+                allDataList.Add(new TurnData
+                {
+                    id = allData[i]["id"],
+                    player = prk.GetPlayer(allData[i]["player"]["id"]),
+                    data = allData[i]["data"]
+                });
+            }
+
+            foreach (var a in allDataList)
+            {
+                Debug.Log(a.data);
+                Debug.Log(a.player.id);
+                Debug.Log(a.player.GetProfile().name);
+                Debug.Log(a.id);
+            }
+            
+            // tell other players whose turn it is
+            // if it's my turn, enable the play button
+            // if it's not my turn, disable the play button
+            // I need to use an rpc to tell who just played a turn.
         });
     }
+}
+
+[System.Serializable]
+public class TurnData
+{
+    public string id;
+    public PlayroomKit.Player player;
+    public string data;
 }

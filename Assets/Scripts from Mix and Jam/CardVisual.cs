@@ -1,13 +1,6 @@
-using System;
 using UnityEngine;
 using DG.Tweening;
-using System.Collections;
-using TMPro;
-using TMPro.EditorUtilities;
-using UnityEngine.EventSystems;
-using Unity.Collections;
 using UnityEngine.UI;
-using Unity.VisualScripting;
 using UnityEngine.Serialization;
 
 public class CardVisual : MonoBehaviour
