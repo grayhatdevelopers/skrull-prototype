@@ -8,7 +8,7 @@ public class GameFlowManager : MonoBehaviour
     public StateMachine GameFlowMachine { get; private set; }
 
     public States CurrentState { get; private set; }
-    
+
     public Button playButton;
 
     private void Awake()
@@ -44,18 +44,20 @@ public class GameFlowManager : MonoBehaviour
 
     private void Update()
     {
+        if (!NetworkManager.Instance.GameStarted) return;
+        
         GameFlowMachine.OnLogic();
-
         Debug.Log(GameFlowMachine.GetActiveHierarchyPath());
     }
-    
+
     #region UI Methods
+
     // Called from the UI, only in one state
     private void PlaySelectedCards()
     {
         Debug.Log("Played Cards");
         NetworkManager.Instance.PlayTurn();
     }
+
     #endregion
-    
 }

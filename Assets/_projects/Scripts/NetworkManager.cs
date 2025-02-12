@@ -7,16 +7,18 @@ using UnityEngine.Serialization;
 
 public class NetworkManager : MonoBehaviour
 {
+    public static NetworkManager Instance { get; private set; }
+    
     [Header("External")]
     [SerializeField]
     private GameObject cardsHolder;
     [SerializeField]
     private GameFlowManager gameFlowManager;
 
-    public static NetworkManager Instance { get; private set; }
+    public bool GameStarted { get; private set; }
+
     private PlayroomKit prk;
-    
-    private List<PlayroomKit.Player> players = new List<PlayroomKit.Player>();
+    private List<PlayroomKit.Player> players = new();
 
     private void Awake()
     {
@@ -54,6 +56,7 @@ public class NetworkManager : MonoBehaviour
         cardsHolder.SetActive(true);
         gameFlowManager.InitStateMachine();
         
+        GameStarted = true;
         players.Add(player);
     }
 
