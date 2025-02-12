@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Playroom;
@@ -8,7 +9,7 @@ using UnityEngine.Serialization;
 public class NetworkManager : MonoBehaviour
 {
     public static NetworkManager Instance { get; private set; }
-    
+
     [Header("External")]
     [SerializeField]
     private GameObject cardsHolder;
@@ -16,9 +17,14 @@ public class NetworkManager : MonoBehaviour
     private GameFlowManager gameFlowManager;
 
     public bool GameStarted { get; private set; }
+    public bool IsHost { get; private set; }
 
     private PlayroomKit prk;
     private List<PlayroomKit.Player> players = new();
+
+
+    [SerializeField]
+    List<TurnData> allTurns = new();
 
     private void Awake()
     {
@@ -49,62 +55,81 @@ public class NetworkManager : MonoBehaviour
     private void OnLaunch()
     {
         prk.OnPlayerJoin(AddPlayer);
+
+        prk.RpcRegister("NextTurn", HandleNextTurn);
+    }
+
+    private void HandleNextTurn(string data, string sender)
+    {
+        UpdateAllTurnsList();
+
+        TurnData latestTurn = allTurns.Last();
+        Debug.Log($"{latestTurn.data} played by {latestTurn.player.GetProfile().name}");
+        
+        if (latestTurn.player.id == prk.MyPlayer().id)
+        {
+            gameFlowManager.playButton.interactable = false;
+        }
+        else
+        {
+            gameFlowManager.playButton.interactable = true;
+        }
     }
 
     private void AddPlayer(PlayroomKit.Player player)
     {
+        Debug.LogWarning(player.GetProfile().name + " joined the room");
+
+        IsHost = prk.IsHost();
         cardsHolder.SetActive(true);
+
+        gameFlowManager.playButton.interactable = prk.IsHost();
+
         gameFlowManager.InitStateMachine();
-        
         GameStarted = true;
         players.Add(player);
     }
 
-    public void PlayTurn(object data = null)
+    private void Update()
     {
-        prk.SaveMyTurnData("Temporary data");
-        gameFlowManager.playButton.interactable = false;
-
-        NextPlayerTurn();
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            for (var i = 0; i < players.Count; i++)
+            {
+                var player = players[i];
+                Debug.LogWarning($"Player at index {i}: {player.GetProfile().name}\n\n");
+            }
+        }
     }
 
-    private void NextPlayerTurn()
+    public void PlayTurn(object data = null)
     {
+        prk.SaveMyTurnData(CardsManager.Instance.selectedCardTypes[0].GetComponent<CardInput>().cardVisual.cardType
+            .ToString());
+
+        gameFlowManager.playButton.interactable = false;
+
+        prk.RpcCall("NextTurn", "", PlayroomKit.RpcMode.ALL);
+    }
+
+    private void UpdateAllTurnsList()
+    {
+        allTurns.Clear();
         prk.GetAllTurns((data) =>
         {
-            // get the id of the player who's turn is next
-            // if it's my turn, enable the play button
-            // if it's not my turn, disable the play button
-            gameFlowManager.playButton.interactable = false;
+            JSONNode allData = JSON.Parse(data);
 
-            // convert the json data to a list of AllDataHandler using simpleJSON
-            var allData = JSON.Parse(data);
-
-            Debug.Log(allData);
-
-            List<TurnData> allDataList = new List<TurnData>();
             for (int i = 0; i < allData.Count; i++)
             {
-                allDataList.Add(new TurnData
+                TurnData turnData = new TurnData
                 {
                     id = allData[i]["id"],
                     player = prk.GetPlayer(allData[i]["player"]["id"]),
                     data = allData[i]["data"]
-                });
-            }
+                };
 
-            foreach (var a in allDataList)
-            {
-                Debug.Log(a.data);
-                Debug.Log(a.player.id);
-                Debug.Log(a.player.GetProfile().name);
-                Debug.Log(a.id);
+                allTurns.Add(turnData);
             }
-            
-            // tell other players whose turn it is
-            // if it's my turn, enable the play button
-            // if it's not my turn, disable the play button
-            // I need to use an rpc to tell who just played a turn.
         });
     }
 }
