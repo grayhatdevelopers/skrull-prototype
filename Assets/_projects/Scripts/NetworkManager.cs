@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using Playroom;
 using SimpleJSON;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 public class NetworkManager : MonoBehaviour
 {
     public static NetworkManager Instance { get; private set; }
+
+    [Header("temp")]
+    public TMP_Text me;
 
     [Header("External")]
     [SerializeField]
@@ -20,8 +24,9 @@ public class NetworkManager : MonoBehaviour
     public bool IsHost { get; private set; }
 
     private PlayroomKit prk;
+    // This list will be overwritten on each client based on the host’s ordering.
     private List<PlayroomKit.Player> players = new();
-
+    private List<string> playerIdsOnHost = new();
 
     [SerializeField]
     List<TurnData> allTurns = new();
@@ -55,70 +60,98 @@ public class NetworkManager : MonoBehaviour
     private void OnLaunch()
     {
         prk.OnPlayerJoin(AddPlayer);
-
         prk.RpcRegister("NextTurn", HandleNextTurn);
+        prk.RpcRegister("UpdatePlayerOrder", HandleUpdatePlayerOrder);
     }
 
     private void HandleNextTurn(string data, string sender)
     {
-        UpdateAllTurnsList();
+        UpdateAllTurnsList(() =>
+        {
+            TurnData latestTurn = allTurns.Last();
 
-        TurnData latestTurn = allTurns.Last();
-        Debug.Log($"{latestTurn.data} played by {latestTurn.player.GetProfile().name}");
-        
-        if (latestTurn.player.id == prk.MyPlayer().id)
-        {
-            gameFlowManager.playButton.interactable = false;
-        }
-        else
-        {
-            gameFlowManager.playButton.interactable = true;
-        }
+            me.text = ($"{latestTurn.data} played by {latestTurn.player.GetProfile().name}");
+
+            int totalTurns = allTurns.Count;
+            if (players.Count == 0)
+            {
+                Debug.LogWarning("No players available to determine turn.");
+                return;
+            }
+
+            int currentTurnIndex = totalTurns % players.Count;
+            PlayroomKit.Player currentPlayer = players[currentTurnIndex];
+
+            me.text += $"\n\nIt is now {currentPlayer.GetProfile().name}'s turn.";
+            gameFlowManager.playButton.interactable = (currentPlayer.id == prk.MyPlayer().id);
+        });
     }
 
     private void AddPlayer(PlayroomKit.Player player)
     {
         Debug.LogWarning(player.GetProfile().name + " joined the room");
+        me.text = prk.MyPlayer().GetProfile().name;
 
         IsHost = prk.IsHost();
         cardsHolder.SetActive(true);
-
         gameFlowManager.playButton.interactable = prk.IsHost();
-
         gameFlowManager.InitStateMachine();
         GameStarted = true;
-        players.Add(player);
-    }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (prk.IsHost())
         {
-            for (var i = 0; i < players.Count; i++)
-            {
-                var player = players[i];
-                Debug.LogWarning($"Player at index {i}: {player.GetProfile().name}\n\n");
-            }
+            players.Add(player);
+            playerIdsOnHost.Add(player.id);
+            UpdatePlayerOrder();
         }
     }
 
+
+    private void UpdatePlayerOrder()
+    {
+        if (!prk.IsHost())
+            return;
+
+        string orderData = string.Join(",", playerIdsOnHost);
+        prk.RpcCall("UpdatePlayerOrder", orderData, PlayroomKit.RpcMode.OTHERS);
+    }
+
+    private void HandleUpdatePlayerOrder(string data, string sender)
+    {
+        // Parse the comma-separated list of player IDs.
+        string[] idOrder = data.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+        players.Clear();
+        foreach (string id in idOrder)
+        {
+            var player = prk.GetPlayer(id);
+            if (player != null)
+            {
+                players.Add(player);
+            }
+        }
+
+        Debug.LogWarning("Updated local player order from host: " + data + "\n\n\n");
+    }
+
+
     public void PlayTurn(object data = null)
     {
-        prk.SaveMyTurnData(CardsManager.Instance.selectedCardTypes[0].GetComponent<CardInput>().cardVisual.cardType
-            .ToString());
+        prk.SaveMyTurnData(
+            CardsManager.Instance.selectedCardTypes[0]
+                .GetComponent<CardInput>()
+                .cardVisual.cardType.ToString()
+        );
 
         gameFlowManager.playButton.interactable = false;
-
         prk.RpcCall("NextTurn", "", PlayroomKit.RpcMode.ALL);
     }
 
-    private void UpdateAllTurnsList()
+    private void UpdateAllTurnsList(Action onComplete)
     {
         allTurns.Clear();
         prk.GetAllTurns((data) =>
         {
             JSONNode allData = JSON.Parse(data);
-
             for (int i = 0; i < allData.Count; i++)
             {
                 TurnData turnData = new TurnData
@@ -127,9 +160,11 @@ public class NetworkManager : MonoBehaviour
                     player = prk.GetPlayer(allData[i]["player"]["id"]),
                     data = allData[i]["data"]
                 };
-
                 allTurns.Add(turnData);
             }
+
+            Debug.LogWarning("Turn count after update: " + allTurns.Count);
+            onComplete?.Invoke();
         });
     }
 }

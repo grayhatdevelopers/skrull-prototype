@@ -47,7 +47,7 @@ public class GameFlowManager : MonoBehaviour
         if (!NetworkManager.Instance.GameStarted) return;
         
         GameFlowMachine.OnLogic();
-        Debug.Log(GameFlowMachine.GetActiveHierarchyPath());
+        // Debug.Log(GameFlowMachine.GetActiveHierarchyPath());
     }
 
     #region UI Methods
