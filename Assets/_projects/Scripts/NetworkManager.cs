@@ -136,11 +136,15 @@ public class NetworkManager : MonoBehaviour
 
     public void PlayTurn(object data = null)
     {
+        // Get the selected card types from the CardsManager.
         List<CardVisual.CardType> selectedCardsTypes = CardsManager.Instance.GetSelectedCardTypes();
-        // selectedCardsTypes->Join() will return a comma-separated string of the selected card types.
+       
+        // Convert the selected card types to a comma-separated string.
         string selectedCards = string.Join(",", selectedCardsTypes);
 
-        Debug.Log("selectedCardtypes" + selectedCards);
+        Debug.Log("selected Cards" + selectedCards);
+        
+        // Save the selected cards to the turn data.
         prk.SaveMyTurnData(selectedCards);
 
         gameFlowManager.playButton.interactable = false;
