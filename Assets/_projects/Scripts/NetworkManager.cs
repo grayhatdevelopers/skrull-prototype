@@ -136,11 +136,12 @@ public class NetworkManager : MonoBehaviour
 
     public void PlayTurn(object data = null)
     {
-        prk.SaveMyTurnData(
-            CardsManager.Instance.selectedCardTypes[0]
-                .GetComponent<CardInput>()
-                .cardVisual.cardType.ToString()
-        );
+        List<CardVisual.CardType> selectedCardsTypes = CardsManager.Instance.GetSelectedCardTypes();
+        // selectedCardsTypes->Join() will return a comma-separated string of the selected card types.
+        string selectedCards = string.Join(",", selectedCardsTypes);
+
+        Debug.Log("selectedCardtypes" + selectedCards);
+        prk.SaveMyTurnData(selectedCards);
 
         gameFlowManager.playButton.interactable = false;
         prk.RpcCall("NextTurn", "", PlayroomKit.RpcMode.ALL);

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CardsManager : MonoBehaviour
 {
@@ -18,28 +19,18 @@ public class CardsManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public List<GameObject> selectedCardTypes = new();
+    public List<GameObject> selectedCards = new();
 
     public void SelectedCards(CardInput cardInput, bool state, GameObject selectionIndicator)
+    
+    public List<CardVisual.CardType> GetSelectedCardTypes()
     {
-        // Card Selection and indicator
-        var cardNumber = selectionIndicator.GetComponentInChildren<TMP_Text>();
-        if (state)
+        List<CardVisual.CardType> selectedCardTypes = new();
+        foreach (CardVisual.CardType type in selectedCardTypes)
         {
-            selectionIndicator.SetActive(true);
-            selectedCardTypes.Add(cardInput.gameObject);
-            cardNumber.text = selectedCardTypes.Count.ToString();
+            selectedCardTypes.Add(type);
         }
-        else
-        {
-            selectionIndicator.SetActive(false);
-            selectedCardTypes.Remove(cardInput.gameObject);
 
-            foreach (GameObject cards in selectedCardTypes)
-            {
-                cards.GetComponent<CardInput>().cardVisual.selectionIndicator.GetComponentInChildren<TMP_Text>().text =
-                    $"{selectedCardTypes.IndexOf(cards) + 1}";
-            }
-        }
+        return selectedCardTypes;
     }
 }
