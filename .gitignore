@@ -76,3 +76,12 @@ crashlytics-build.properties
 /[Aa]ssets/Playroomkit/node_modules.meta
 Assets/msedgedriver.exe
 Assets/msedgedriver.exe.meta
+
+
+# Chrome WebDriver (ChromeDriver)
+Assets/chromedriver
+Assets/chromedriver.exe
+Assets/chromedriver/*
+Assets/chromedriver_win32/
+Assets/chromedriver_mac/
+Assets/chromedriver_linux64/
