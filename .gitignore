@@ -84,3 +84,5 @@ Assets/Resources/PerformanceTestRunSettings.json
 Assets/Resources/PerformanceTestRunSettings.json.meta
 Assets/chromedriver
 Assets/chromedriver.meta
+
+Assets/PlayroomKit/Prefabs/PlayroomMockManager.prefab
