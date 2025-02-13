@@ -809,5 +809,10 @@ namespace UnityHFSM
 			: base(needsExitTime: needsExitTime, isGhostState: isGhostState, rememberLastState: rememberLastState)
 		{
 		}
+
+		public void SetState(string rulestate)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

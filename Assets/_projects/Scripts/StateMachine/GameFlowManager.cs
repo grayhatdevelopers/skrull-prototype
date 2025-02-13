@@ -7,8 +7,7 @@ public class GameFlowManager : MonoBehaviour
     public StateMachine GameFlowMachine { get; private set; }
 
     public States CurrentState { get; private set; }
-
-//
+    
     private void Start()
     {
         // Create the state machine
@@ -24,6 +23,8 @@ public class GameFlowManager : MonoBehaviour
         GameFlowMachine.SetStartState(States.CardPlacement.ToString());
         // Initialize the state machine
         GameFlowMachine.Init();
+        
+        
     }
 
 

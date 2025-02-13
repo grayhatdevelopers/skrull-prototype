@@ -18,7 +18,10 @@ public class GameEndState:State
     public override void OnLogic()
     {
         base.OnLogic();
-        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            gameMachine.Trigger(TriggerEvents.EndsGame.ToString());
+        }        
     }
 
     public override void OnExit()

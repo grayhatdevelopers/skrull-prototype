@@ -18,6 +18,10 @@ public class GetPointState : State
     public override void OnLogic()
     {
         base.OnLogic();
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            gameMachine.Trigger(TriggerEvents.GainPoint.ToString());
+        }
         
     }
 
