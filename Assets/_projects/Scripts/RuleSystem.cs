@@ -34,7 +34,7 @@ public class RuleSystem : MonoBehaviour
         new Card("Golden Gun", "Once during a reveal phase, a player may predict that the next card is a skull. If correct, it counts as a rose reveal. If incorrect, it counts as a skull and immediately ends the reveal phase."),
         new Card("Mystery Mode", "Players don’t have to reveal all their cards first during a reveal."),
         new Card("Spin to Win","The first bid of the round starts with a dice roll."),
-        new Card("Market Surplus:","In a pile of 3 or more cards, players can reveal the bottom card without consequences (no points are awarded and skulls have no effect) ."),
+        new Card("Market Surplus","In a pile of 3 or more cards, players can reveal the bottom card without consequences (no points are awarded and skulls have no effect) ."),
         new Card("The Good Gone Bad","All Duds are now Skulls."),
         new Card("Card Inflation","Each player must play at least 2 cards per turn if they have more than 1 card in hand."),
         new Card("Go Green","When this card is revealed, every player with 3 or fewer cards receives a random card from the discard pile"),
@@ -70,7 +70,13 @@ public class RuleSystem : MonoBehaviour
             return;
         }
 
-        Card newRule = ruleSet[UnityEngine.Random.Range(0, ruleSet.Count)];
+       
+
+        int randomIndex = UnityEngine.Random.Range(0, ruleSet.Count);
+        Card newRule = ruleSet[randomIndex];
+        ruleSet.RemoveAt(randomIndex);
+
+
         Debug.Log("New Rule Added: " +newRule.Name+ " : " + newRule.Description);
         DisplayNewRule( newRule );
     }
@@ -78,7 +84,7 @@ public class RuleSystem : MonoBehaviour
     {
         if (ruleText != null)
         {
-            ruleText.text = "New Rule Added: " + newRule.Name + " : " + newRule.Description;
+            ruleText.text += $"\n-----------------\nNew Rule: {newRule.Name} - {newRule.Description}";
         }
     }
 
