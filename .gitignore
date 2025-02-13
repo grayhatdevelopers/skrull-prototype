@@ -85,3 +85,5 @@ Assets/chromedriver/*
 Assets/chromedriver_win32/
 Assets/chromedriver_mac/
 Assets/chromedriver_linux64/
+
+Assets/Playroomkit/node_modules/
