@@ -28,6 +28,22 @@ public class NetworkManager : MonoBehaviour
     private List<PlayroomKit.Player> players = new();
     private List<string> playerIdsOnHost = new();
 
+    #region BiddingStateDeclaration
+
+    [Header("UI References")]
+    public TMP_Text highestBidText;
+    public TMP_Text currentTurnText;
+    
+    private int highestBid = 0;
+    private string highestBidderString = "";
+    private PlayroomKit.Player highestBidder = null;
+    private int passCount = 0;
+    private int currentTurnIndex = 0;
+    
+    
+    #endregion    
+    
+
     [SerializeField]
     List<TurnData> allTurns = new();
 
@@ -62,6 +78,7 @@ public class NetworkManager : MonoBehaviour
         prk.OnPlayerJoin(AddPlayer);
         prk.RpcRegister("NextTurn", HandleNextTurn);
         prk.RpcRegister("UpdatePlayerOrder", HandleUpdatePlayerOrder);
+        prk.RpcRegister("UpdateBid", HandleUpdateBid);
     }
 
     private void HandleNextTurn(string data, string sender)
@@ -86,6 +103,70 @@ public class NetworkManager : MonoBehaviour
             gameFlowManager.playButton.interactable = (currentPlayer.id == prk.MyPlayer().id);
         });
     }
+    
+    # region BiddingStateFunctions
+
+    public void PlayerBid(int bidAmount)
+    {
+        highestBid = bidAmount;
+        highestBidder = players[currentTurnIndex];
+      
+        
+        
+        highestBidText.text = $"Highest Bid : {highestBid} by {highestBidder.GetProfile().name}";
+        
+        passCount = 0;
+        
+        prk.RpcCall("UpdateBid", $"{highestBid},{highestBidder.id}", PlayroomKit.RpcMode.ALL);
+        
+        
+        NextTurn();
+    }
+
+    public void PlayerPass()
+    {
+        passCount++;
+        if (passCount >= players.Count - 1)
+        {
+            Debug.LogWarning("All players have passed. Move to reveal State");
+            //Reveal state func to be called in here
+        }
+        else
+        {
+            NextTurn();
+        }
+    }
+
+    private void NextTurn()
+    {
+        currentTurnIndex = (currentTurnIndex + 1) % players.Count;
+        PlayroomKit.Player currentPlayer = players[currentTurnIndex];
+        currentTurnText.text = $" its {currentPlayer.GetProfile().name}'s turn. ";
+        gameFlowManager.playButton.interactable = (currentPlayer.id == prk.MyPlayer().id);
+    }
+    
+    private void HandleUpdateBid(string data, string sender)
+    {
+        string[] bidData = data.Split(',');
+        highestBid = int.Parse(bidData[0]);
+
+        string bidderId = bidData[1];
+        highestBidder = players.FirstOrDefault(p => p.id == bidderId);
+
+        highestBidText.text = $"Highest Bid: {highestBid} by {highestBidder.GetProfile().name}";
+
+        Debug.Log($"New highest bid: {highestBid} by {highestBidder.GetProfile().name}");
+    }
+
+
+    public int GetMaxBidAmount()
+    {
+        return allTurns.Count == 0 ? 2 : allTurns.Count;
+    }
+    
+    
+    #endregion
+    
 
     private void AddPlayer(PlayroomKit.Player player)
     {
