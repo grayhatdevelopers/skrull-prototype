@@ -13,22 +13,21 @@ public class CardPlacementState : State
     public override void OnEnter()
     {
         base.OnEnter();
-
         Debug.Log("Entering CardPlacementState ");
+
+        // Here you can add logic to set up the state, such as initializing variables or UI elements.
     }
 
     public override void OnLogic()
     {
         base.OnLogic();
-        
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            gameMachine.Trigger(TriggerEvents.BiddingStarted.ToString());
-        }
+
+        // Here you can add logic that should run every frame while in this state.
     }
 
     public override void OnExit()
     {
         base.OnExit();
     }
+
 }

@@ -6,6 +6,7 @@ public class CardsManager : MonoBehaviour
 {
     public static CardsManager Instance { get; private set; }
 
+    // Singleton instance of the CardsManager, so it can be accessed globally and doesn't get destroyed on scene change
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -20,6 +21,7 @@ public class CardsManager : MonoBehaviour
 
     public List<GameObject> selectedCardTypes = new();
 
+    // This method is called when a card is selected or deselected, and it updates the selection indicator accordingly.
     public void SelectedCards(CardInput cardInput, bool state, GameObject selectionIndicator)
     {
         // Card Selection and indicator
