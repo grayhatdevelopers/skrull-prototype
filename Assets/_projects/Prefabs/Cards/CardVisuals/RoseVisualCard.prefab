@@ -341,9 +341,9 @@ MonoBehaviour:
   parentCardInput: {fileID: 0}
   selectionIndicator: {fileID: 6688863493494670613}
   cardType: 0
-  visualShadow: {fileID: 9157190824811683565, guid: bddd0263814164da396aa8d1438dd810, type: 3}
-  shakeParent: {fileID: 3449025543118524474, guid: bddd0263814164da396aa8d1438dd810, type: 3}
-  tiltParent: {fileID: 5862976466474931636, guid: bddd0263814164da396aa8d1438dd810, type: 3}
+  visualShadow: {fileID: 9157190824811683565}
+  shakeParent: {fileID: 3449025543118524474}
+  tiltParent: {fileID: 5862976466474931636}
   cardImage: {fileID: 7697484841366769644}
   followSpeed: 15
   rotationAmount: 60
@@ -363,7 +363,7 @@ MonoBehaviour:
   swapRotationAngle: 20
   swapTransition: 0.2
   swapVibrato: 5
-  curve: {fileID: 11400000, guid: d8910e5a244574016877d731d0fb2c97, type: 2}
+  curve: {fileID: 11400000, guid: d4dd399fb2dab44429d866dc2259bb4b, type: 2}
 --- !u!223 &4132845374223140069
 Canvas:
   m_ObjectHideFlags: 0
