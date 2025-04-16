@@ -1,10 +1,10 @@
 # Skrull 
 
 A simple card game built with [Unity](https://unity.com/) and [Playroomkit](https://github.com/playroomkit/Playroomkit). This project is inspired by ideas detailed in the [Skrull GDD](https://gifted-punch-51c.notion.site/Skrull-GDD-1812d76eeeaa808aaca5fff530310cd9?pvs=74).
-- Project made with Unity `6000.0.25f1`
+- Project made with Unity `6000.0.27f1`
 
-> **Game Link:**  
-https://skurll.playroom.gg
+**Game Link:**  
+https://skrull.playroom.gg
 
 ## Overview
 
@@ -28,22 +28,23 @@ https://skurll.playroom.gg
     - Project also uses [UnityHFSM](https://github.com/Inspiaaa/UnityHFSM) but it is optional, you can use any way to handle game flow.
 
 4. **Run the Game**
-    - TODO: Open the main scene (typically found in the `Scenes` folder).
+    - Open the `Template` scene which is in the `_project/scenes` folder
     - Click the **Play** button in the Unity Editor to test the game.
-    - Use Unity’s Build Settings to compile the project for your target platform.
+    - Use Unity’s build Settings to compile the project for your target platform.
 
-## Code Documentation
 
 The repository is organized as follows:
 
 - **Assets/**  
-  Contains all game assets, scripts, and scenes.
-  
-  - **Scripts/**  
-    Contains the game logic and gameplay scripts. Each script includes inline comments documenting the code functionality.
-  
-  - **Scenes/**  
-    Contains the Unity scenes with the main gameplay usually located in `MainScene.unity`.
+
+    - **_projects/**  
+        This Folder contains everything about the project 
+
+        - **Scripts/**  
+            Contains the game logic and gameplay scripts. Each script includes inline comments documenting the code functionality.
+        
+        - **Scenes/**  
+            Contains the Unity scenes with the main gameplay usually located in `MainScene.unity`.
 
 ## Need more?
 Getting started with [Playroom Unity](https://docs.joinplayroom.com/usage/unity).
