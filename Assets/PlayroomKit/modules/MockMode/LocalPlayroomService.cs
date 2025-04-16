@@ -9,7 +9,6 @@ namespace Playroom
     {
         private Dictionary<string, object> mockGlobalStates = new();
         private const string PlayerId = "mockplayerID123";
-
         private static bool mockIsStreamMode;
 
         public Action OnPlayerJoin(Action<PlayroomKit.Player> onPlayerJoinCallback)
@@ -194,12 +193,12 @@ namespace Playroom
             DebugLogger.LogWarning("[MockMode] Turn based API is currently not supported in local mode!");
         }
 
-        public void GetMyTurnData(Action<string> callback)
+        public void GetMyTurnData(Action<TurnData> callback)
         {
             DebugLogger.LogWarning("[MockMode] Turn based API is currently not supported in local mode!");
         }
 
-        public void GetAllTurns(Action<string> callback)
+        public void GetAllTurns(Action<List<TurnData>> callback)
         {
             DebugLogger.LogWarning("[MockMode] Turn based API is currently not supported in local mode!");
         }
@@ -207,6 +206,12 @@ namespace Playroom
         public void ClearTurns(Action callback)
         {
             DebugLogger.LogWarning("[MockMode] Turn based API is currently not supported in local mode!");
+        }
+
+        public string GetPlayroomToken()
+        {
+            DebugLogger.LogWarning("[MockMode] Playroom token is currently not supported in local mode!");
+            return default;
         }
 
         #endregion

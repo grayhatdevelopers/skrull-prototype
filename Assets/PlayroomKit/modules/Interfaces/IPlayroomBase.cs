@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using AOT;
-using Playroom;
 using UnityEngine;
 
 namespace Playroom
@@ -55,20 +54,21 @@ namespace Playroom
 
             public void UnsubscribeOnQuit();
 
+            public string GetPlayroomToken();
+
             #region TurnBased
 
             public string GetChallengeId();
 
             public void SaveMyTurnData(object data);
 
-            public void GetMyTurnData(Action<string> callback);
+            public void GetMyTurnData(Action<TurnData> callback);
 
-            public void GetAllTurns(Action<string> callback);
+            public void GetAllTurns(Action<List<TurnData>> callback);
 
             public void ClearTurns(Action callback = null);
 
             #endregion
-
 
             #region Callbacks Wrappers
 

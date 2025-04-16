@@ -278,6 +278,12 @@ namespace Playroom
             return _playroomService.Me();
         }
 
+        public string GetPlayroomToken()
+        {
+            CheckPlayRoomInitialized();
+            return _playroomService.GetPlayroomToken();
+        }
+
         private void UnsubscribeOnQuit()
         {
             _playroomService.UnsubscribeOnQuit();
@@ -320,13 +326,13 @@ namespace Playroom
             _playroomService.SaveMyTurnData(data);
         }
 
-        public void GetMyTurnData(Action<string> callback)
+        public void GetMyTurnData(Action<TurnData> callback)
         {
             CheckPlayRoomInitialized();
             _playroomService.GetMyTurnData(callback);
         }
 
-        public void GetAllTurns(Action<string> callback)
+        public void GetAllTurns(Action<List<TurnData>> callback)
         {
             CheckPlayRoomInitialized();
             _playroomService.GetAllTurns(callback);

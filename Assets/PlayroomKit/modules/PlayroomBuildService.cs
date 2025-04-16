@@ -4,7 +4,6 @@ using AOT;
 using SimpleJSON;
 using System;
 using System.Collections.Generic;
-using OpenQA.Selenium.DevTools.V96.Browser;
 
 namespace Playroom
 {
@@ -96,6 +95,11 @@ namespace Playroom
                 _interop.OnDisconnectWrapper(OnDisconnectCallbackHandler);
             }
 
+            public string GetPlayroomToken()
+            {
+                return GetPlayroomTokenInternal();
+            }
+
             #endregion
 
             #region Unsubscribers
@@ -173,10 +177,14 @@ namespace Playroom
                     var floatAsString = floatValue.ToString(CultureInfo.InvariantCulture);
                     _interop.SetStateFloatWrapper(key, floatAsString, reliable);
                 }
+                else if (value is Enum)
+                {
+                    _interop.SetStateStringWrapper(key, value.ToString(), reliable);
+                }
                 else if (value is object)
                 {
-                    Debug.Log("SetState " + key + ", value is " + value + "of type " + value.GetType());
                     string jsonString = JsonUtility.ToJson(value);
+                    Debug.Log("SetState " + key + ", value is " + value + "of type " + value.GetType());
                     _interop.SetStateStringWrapper(key, jsonString, reliable);
                 }
                 else
@@ -222,7 +230,6 @@ namespace Playroom
 
             public void SetState(string key, object value, bool reliable = false)
             {
-                Debug.Log("SetState " + key + ", value is " + value + " of type " + value.GetType());
                 string jsonString = JsonUtility.ToJson(value);
                 _interop.SetStateStringWrapper(key, jsonString, reliable);
             }
@@ -261,6 +268,25 @@ namespace Playroom
                 else if (type == typeof(Vector3)) return JsonUtility.FromJson<T>(GetStateString(key));
                 else if (type == typeof(Vector4)) return JsonUtility.FromJson<T>(GetStateString(key));
                 else if (type == typeof(Quaternion)) return JsonUtility.FromJson<T>(GetStateString(key));
+                else if (type.IsEnum)
+                {
+                    try
+                    {
+                        string valueString = _interop.GetStateStringWrapper(key);
+
+                        if (string.IsNullOrEmpty(valueString))
+                        {
+                            return default;
+                        }
+
+                        return (T)Enum.Parse(typeof(T), valueString.Trim('\"', ' '));
+                    }
+                    catch (ArgumentException)
+                    {
+                        Debug.LogError($"Failed to parse '{key}' to Enum of type {typeof(T)}");
+                        return default;
+                    }
+                }
                 else
                 {
                     Debug.LogError($"GetState<{type}> is not supported.");
@@ -354,6 +380,8 @@ namespace Playroom
 
                 if (data is int || data is string || data is float)
                     jsonData = JSONNode.Parse(data.ToString()).ToString();
+                else if (data is string) 
+                    jsonData = data.ToString();
                 else
                     jsonData = JsonUtility.ToJson(data);
 
@@ -363,10 +391,13 @@ namespace Playroom
             [MonoPInvokeCallback(typeof(Action<string>))]
             private static void TurnBasedMyDataCallback(string data)
             {
-                CallbackManager.InvokeCallback("GetMyData", data);
+                // TODO Convert json data to object:
+                TurnData turnData = Helpers.ParseTurnData(data);
+
+                CallbackManager.InvokeCallback("GetMyData", turnData);
             }
 
-            public void GetMyTurnData(Action<string> callback)
+            public void GetMyTurnData(Action<TurnData> callback)
             {
                 CheckPlayRoomInitialized();
                 CallbackManager.RegisterCallback(callback, "GetMyData");
@@ -376,10 +407,11 @@ namespace Playroom
             [MonoPInvokeCallback(typeof(Action<string>))]
             private static void turnBasedCallbackHandler(string data)
             {
-                CallbackManager.InvokeCallback("GetAllTurns", data);
+                List<TurnData> turnData = Helpers.ParseAllTurnData(data);
+                CallbackManager.InvokeCallback("GetAllTurns", turnData);
             }
 
-            public void GetAllTurns(Action<string> callback)
+            public void GetAllTurns(Action<List<TurnData>> callback)
             {
                 CheckPlayRoomInitialized();
                 CallbackManager.RegisterCallback(callback, "GetAllTurns");

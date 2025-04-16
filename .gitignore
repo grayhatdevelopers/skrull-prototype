@@ -76,3 +76,5 @@ crashlytics-build.properties
 /[Aa]ssets/Playroomkit/node_modules.meta
 Assets/msedgedriver.exe
 Assets/msedgedriver.exe.meta
+Assets/chromedriver.exe
+Assets/chromedriver.exe.meta

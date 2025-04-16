@@ -150,9 +150,24 @@ namespace Playroom
 
         public T GetState<T>(string key)
         {
-            return _ubb.CallJs<T>("GetState", null, null, false, key);
-        }
+            string result = _ubb.CallJs<string>("GetState", null, null, false, key);
 
+            if (typeof(T).IsEnum)
+            {
+                try
+                {
+                    result = result.Trim('\"', ' ');
+                    return (T)Enum.Parse(typeof(T), result, true);
+                }
+                catch (ArgumentException)
+                {
+                    Debug.LogError($"Failed to parse '{result}' to Enum of type {typeof(T)}");
+                    return default;
+                }
+            }
+
+            return (T)Convert.ChangeType(result, typeof(T));
+        }
 
         public void WaitForState(string stateKey, Action<string> onStateSetCallback = null)
         {
@@ -226,9 +241,13 @@ namespace Playroom
         {
             string jsonData;
 
-            if (data is int || data is string || data is float)
+            if (data is int || data is float)
             {
                 jsonData = JSONNode.Parse(data.ToString()).ToString();
+            }
+            else if (data is string)
+            {
+                jsonData = data.ToString();
             }
             else
             {
@@ -238,16 +257,18 @@ namespace Playroom
             _ubb.CallJs("SaveMyTurnData", null, null, true, jsonData);
         }
 
-        public void GetMyTurnData(Action<string> callback)
+        public void GetMyTurnData(Action<TurnData> callback)
         {
             string data = _ubb.CallJs<string>("GetMyTurnData", null, null, true);
-            callback.Invoke(data);
+            TurnData turnData = Helpers.ParseTurnData(data);
+            callback.Invoke(turnData);
         }
 
-        public void GetAllTurns(Action<string> callback)
+        public void GetAllTurns(Action<List<TurnData>> callback)
         {
             string data = _ubb.CallJs<string>("GetAllTurns", null, null, true);
-            callback.Invoke(data);
+            List<TurnData> allTurns = Helpers.ParseAllTurnData(data);
+            callback.Invoke(allTurns);
         }
 
         public void ClearTurns(Action callback)
@@ -288,6 +309,12 @@ namespace Playroom
         public static void MockOnPlayerJoinWrapper(string playerId)
         {
             PlayroomKit.IPlayroomBase.OnPlayerJoinWrapperCallback(playerId);
+        }
+
+        public string GetPlayroomToken()
+        {
+            DebugLogger.LogWarning("[MockMode] Playroom token is currently not supported in browser mock mode!");
+            return string.Empty;
         }
 
         #endregion
