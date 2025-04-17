@@ -44,10 +44,17 @@ The repository is organized as follows:
             Contains the game logic and gameplay scripts. Each script includes inline comments documenting the code functionality.
         
         - **Scenes/**  
-            Contains the Unity scenes with the main gameplay usually located in `MainScene.unity`.
+            Contains the game scene, the template is in `template.unity`.
+
+## Deployment:
+- Create an account on the [dev portal](https://dev.joinplayroom.com) and sign in.
+- Create a new project on the dev portal, and to host just drag and drop the game build files in the hosting tab.
+- Make sure to follow the [recommended settings](https://docs.joinplayroom.com/usage/unity#4-exporting-to-webgl) before building the game .
+- For making a discord activity, check the `discord activity` tab in dev portal for your project for instructions.
+
 
 ## Need more?
-Getting started with [Playroom Unity](https://docs.joinplayroom.com/usage/unity).
-Playroom Unity API ref: https://docs.joinplayroom.com/apidocs/unity
+- Getting started with [Playroom Unity](https://docs.joinplayroom.com/usage/unity).
+- Playroom Unity API ref: https://docs.joinplayroom.com/apidocs/unity
 
 Happy Jaming!
